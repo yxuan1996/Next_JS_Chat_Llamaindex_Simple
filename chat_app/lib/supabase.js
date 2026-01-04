@@ -39,13 +39,13 @@ export const getUser = async () => {
 /**
  * Sign up a new user with email and password
  */
-export const signUp = async (email, password) => {
-  const supabase = createClient();
-  return await supabase.auth.signUp({
-    email,
-    password,
-  });
-};
+// export const signUp = async (email, password) => {
+//   const supabase = createClient();
+//   return await supabase.auth.signUp({
+//     email,
+//     password,
+//   });
+// };
 
 /**
  * Sign in an existing user

@@ -7,7 +7,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { signIn, signUp } from '@/lib/supabase';
+import { signIn } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -15,7 +15,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 export default function LoginPage() {
   const router = useRouter();
-  const [isSignUp, setIsSignUp] = useState(false);
+  // const [isSignUp, setIsSignUp] = useState(false);
+  const isSignUp = false;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -27,17 +28,20 @@ export default function LoginPage() {
     setError('');
 
     try {
-      if (isSignUp) {
-        // Sign up new user
-        const { error } = await signUp(email, password);
-        if (error) throw error;
-        alert('Check your email for the confirmation link!');
-      } else {
-        // Sign in existing user
-        const { error } = await signIn(email, password);
-        if (error) throw error;
-        router.push('/chat');
-      }
+      // if (isSignUp) {
+      //   // Sign up new user
+      //   const { error } = await signUp(email, password);
+      //   if (error) throw error;
+      //   alert('Check your email for the confirmation link!');
+      // } else {
+      //   // Sign in existing user
+      //   const { error } = await signIn(email, password);
+      //   if (error) throw error;
+      //   router.push('/chat');
+      // }
+      const { error } = await signIn(email, password);
+      if (error) throw error;
+      router.push('/chat');
     } catch (error) {
       setError(error.message);
     } finally {
@@ -94,7 +98,7 @@ export default function LoginPage() {
               {loading ? 'Loading...' : isSignUp ? 'Sign Up' : 'Sign In'}
             </Button>
           </form>
-          <div className="mt-4 text-center text-sm">
+          {/* <div className="mt-4 text-center text-sm">
             {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
             <button
               type="button"
@@ -104,7 +108,7 @@ export default function LoginPage() {
             >
               {isSignUp ? 'Sign In' : 'Sign Up'}
             </button>
-          </div>
+          </div> */}
         </CardContent>
       </Card>
     </div>
